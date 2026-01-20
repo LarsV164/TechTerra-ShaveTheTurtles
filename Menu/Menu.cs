@@ -58,6 +58,8 @@ namespace TechTerra_FrontEnd
                 }
             }
         }
+
+        //Tijdelijke methodes voor menu-opties
         private void DierGegevens()
         {
             Console.Clear();
