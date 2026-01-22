@@ -13,12 +13,17 @@ namespace TechTerra_FrontEnd.DataAccessLayer
     {
         private readonly string connectionString;
 
-        public DAL(string catalog)
+        public DAL()
         {
-            this.connectionString = BuildConnectionString();
+            // 1. Conncetie bouwen voor Azure SQL Database
+            // this.connectionString = BuildConnectionString();
+
+            //2. Connectie bouwen voor lokale database
+            this.connectionString = localConnectionString();
         }
 
         // Connection string maken voor  Azure SQL Database
+        /*
         private string BuildConnectionString()
         {
             var builder = new SqlConnectionStringBuilder
@@ -30,6 +35,16 @@ namespace TechTerra_FrontEnd.DataAccessLayer
             };
 
             return builder.ConnectionString;
+        }
+        */
+
+        // Connection string maken voor lokale database
+
+        // PAS DEZE AAN NAAR JOUW EIGEN INSTELLINGEN!!! (trust server certificate op true zetten anders werkt het niet en deze in de connectionstring aan elkaar vast typen VB: TrustServerCertificate=True)
+        private string localConnectionString()
+        {
+            string connectionstring = "Data Source = ASUS_Lars; Initial Catalog = Dierentuin; Integrated Security = True; Encrypt = True; TrustServerCertificate = True";
+            return connectionstring;
         }
 
 
@@ -80,6 +95,8 @@ namespace TechTerra_FrontEnd.DataAccessLayer
 
             // Voer de query uit en vul de lijst met dieren
             using (var connection = new SqlConnection(connectionString))
+
+
             using (var command = new SqlCommand(queryString, connection))
             {
                 connection.Open();

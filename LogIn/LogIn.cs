@@ -8,6 +8,8 @@ namespace TechTerra_FrontEnd
 {
     public class LogIn
     {
+
+        // Tijdelijk totdat het in de database staat
         private List<string> Usernames = new List<string>
         {
             "admin",
