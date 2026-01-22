@@ -12,11 +12,9 @@ namespace TechTerra_FrontEnd.DataAccessLayer
     public class DAL
     {
         private readonly string connectionString;
-        private readonly string catalog;
 
         public DAL(string catalog)
         {
-            this.catalog = catalog;
             this.connectionString = BuildConnectionString();
         }
 
