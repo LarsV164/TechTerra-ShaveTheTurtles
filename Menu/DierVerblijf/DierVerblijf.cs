@@ -14,7 +14,7 @@ namespace TechTerra_FrontEnd
         public void ShowList()
         {
             // DAL instantie aanmaken
-            var dal = new DAL("TechTerra");
+            var dal = new DAL();
 
             List<Dier> dieren;
             // DAL aanroepen om dieren op te halen
