@@ -50,12 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataBase\DataAccessLayer.cs" />
-    <Compile Include="DataBase\Data\Dier.cs" />
-    <Compile Include="DataBase\Data\Verblijf.cs" />
-    <Compile Include="Menu\DierVerblijf\DierVerblijf.cs" />
-    <Compile Include="LogIn\LogIn.cs" />
-    <Compile Include="Menu\Menu.cs" />
+    <Compile Include="DAL\DataAccessLayer.cs" />
+    <Compile Include="MODEL\Data\Dier.cs" />
+    <Compile Include="MODEL\Data\Verblijf.cs" />
+    <Compile Include="MODEL\Menu\DierVerblijf\DierVerblijf.cs" />
+    <Compile Include="MODEL\LogIn\LogIn.cs" />
+    <Compile Include="MODEL\Menu\Menu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
