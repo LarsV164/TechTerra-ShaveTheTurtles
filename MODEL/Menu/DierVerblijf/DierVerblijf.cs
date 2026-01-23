@@ -26,7 +26,7 @@ namespace TechTerra_FrontEnd
             {
                 Console.WriteLine("Fout bij ophalen van dieren: " + ex.Message);
                 Console.WriteLine();
-                Console.WriteLine("Duw op een toets om terug te gaan naar het menu ->");
+                Console.WriteLine("druk op een toets om terug te gaan naar het menu ->");
                 Console.ReadKey();
                 Console.Clear();
                 return;
@@ -40,18 +40,18 @@ namespace TechTerra_FrontEnd
             foreach (var dier in dieren)
                 {
                     Console.WriteLine("---------------------------------");
-                    Console.WriteLine("ID: " + dier.ID);
+                    Console.WriteLine("DIER ID: " + dier.ID);
                     Console.WriteLine("NAAM: " + (dier.Naam));
                     Console.WriteLine("SOORT: " + (dier.Soort));
                     Console.WriteLine("LEEFTIJD: " + (dier.Geboortedatum));
                     Console.WriteLine("- - - - - - - - - - - - - - - - -");
-                    Console.WriteLine("Verblijf: " + (dier.VerblijfNaam) + " | ID: " + dier.VerblijfID);
+                    Console.WriteLine("VERBLIJF NAAM: " + (dier.VerblijfNaam) + " | VERBLIJF ID: " + dier.VerblijfID);
                     Console.WriteLine();
                 }
            
             // footer
             Console.WriteLine();
-            Console.WriteLine("Duw op een toets om terug te gaan naar het menu ->");
+            Console.WriteLine("druk op een toets om terug te gaan naar het menu ->");
             Console.ReadKey();
             Console.Clear();
         }

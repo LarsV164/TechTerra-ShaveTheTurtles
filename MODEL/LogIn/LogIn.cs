@@ -15,7 +15,7 @@ namespace TechTerra_FrontEnd
             "admin",
             "teamleider",
             "verzorger",
-            "verblijf"
+            "verblijfbeheerder"
         };
 
         private List<string> Passwords = new List<string>
@@ -23,7 +23,7 @@ namespace TechTerra_FrontEnd
             "Admin0000",
             "TeamL0000",
             "Verz0000",
-            "Verblijf0000"
+            "VbBh0000"
         };
 
         public bool ShowLogin()
@@ -42,18 +42,17 @@ namespace TechTerra_FrontEnd
 
             int PWindex = Passwords.IndexOf(password);
 
-            bool isValid = ValidateLogIn(UNindex, PWindex);
-
             Console.WriteLine();
-            if (isValid)
+            if (ValidateLogIn(UNindex, PWindex))
             {
                 Console.WriteLine($"Welkom {username}!");
-                Console.WriteLine(AccessLevel(UNindex));
                 return true;
             }
             else
             {
                 Console.WriteLine("Gebruikersnaam of Wachtwoord verkeerd!");
+                Console.WriteLine("Programma wordt afgesloten, druk op een toets.");
+                Console.ReadKey();
                 return false;
             }
         }
@@ -62,11 +61,11 @@ namespace TechTerra_FrontEnd
         {
             return UNindex == PWindex;
         }
-
-        public string AccessLevel(int UNindex)
+/*
+        public int AccessLevel()
         {
-            return Usernames[UNindex];
+            return UNindex;
 
-        }
+        }*/
     }
 }

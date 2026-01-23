@@ -22,7 +22,7 @@ namespace TechTerra_FrontEnd.DataAccessLayer
             this.connectionString = localConnectionString();
         }
 
-        // Connection string maken voor  Azure SQL Database
+        // Connection string maken voor  Azure SQL Database (Deze staat uit vanwege de kosten voor de firewall voor toegang)
         /*
         private string BuildConnectionString()
         {
@@ -43,7 +43,7 @@ namespace TechTerra_FrontEnd.DataAccessLayer
         // PAS DEZE AAN NAAR JOUW EIGEN INSTELLINGEN!!! (trust server certificate op true zetten anders werkt het niet en deze in de connectionstring aan elkaar vast typen VB: TrustServerCertificate=True)
         private string localConnectionString()
         {
-            string connectionstring = "Data Source = ASUS_Lars; Initial Catalog = Dierentuin; Integrated Security = True; Encrypt = True; TrustServerCertificate = True";
+            string connectionstring = "Data Source = ASUS_Lars; Initial Catalog = VoorbeeldDierentuin; Integrated Security = True; Encrypt = True; TrustServerCertificate = True";
             return connectionstring;
         }
 
@@ -94,12 +94,17 @@ namespace TechTerra_FrontEnd.DataAccessLayer
             }
 
             // Voer de query uit en vul de lijst met dieren
-            using (var connection = new SqlConnection(connectionString))
 
+            // conncetie bouwen en query versturen
+            //--------------------------------------------------------------
+            using (var connection = new SqlConnection(connectionString))
 
             using (var command = new SqlCommand(queryString, connection))
             {
                 connection.Open();
+            //--------------------------------------------------------------
+                // reader wordt gebruikt om de data uit de database te lezen
+                // deze wordt niet gebruikt voor het versturen van data naar de database
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -107,12 +112,12 @@ namespace TechTerra_FrontEnd.DataAccessLayer
                         var dier = new Dier
                         
                         {
-                            ID = reader.GetInt32(reader.GetOrdinal("ID")),           // int
-                            Naam = reader.GetString(reader.GetOrdinal("Naam")),  // string
-                            Soort = reader.GetString(reader.GetOrdinal("Soort")), // string  
-                            VerblijfID = reader.GetInt32(reader.GetOrdinal("VerblijfID")),  // int
-                            VerblijfNaam = reader.GetString(reader.GetOrdinal("Verblijfnaam")), // string
-                            Geboortedatum = reader.GetDateTime(reader.GetOrdinal("Geboortedatum")) // DateTime
+                            ID = reader.GetInt32(reader.GetOrdinal("ID")),
+                            Naam = reader.GetString(reader.GetOrdinal("Naam")),
+                            Soort = reader.GetString(reader.GetOrdinal("Soort")),
+                            VerblijfID = reader.GetInt32(reader.GetOrdinal("VerblijfID")),
+                            VerblijfNaam = reader.GetString(reader.GetOrdinal("Verblijfnaam")),
+                            Geboortedatum = reader.GetDateTime(reader.GetOrdinal("Geboortedatum"))
                         };
 
                         

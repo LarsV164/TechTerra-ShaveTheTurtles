@@ -14,7 +14,7 @@ namespace TechTerra_FrontEnd
 
             if (loginManager.ShowLogin())
             {
-                Console.WriteLine("\nDuw op een toets om verder te gaan ->");
+                Console.WriteLine("\ndruk op een toets om verder te gaan ->");
                 Console.ReadKey();
                 Console.Clear();
 
