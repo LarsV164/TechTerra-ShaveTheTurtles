@@ -58,6 +58,8 @@ namespace TechTerra_FrontEnd.DataAccessLayer
             Console.Clear();
             Console.WriteLine("Sorteer op:\n1. ID\n2. Soort\n3. Verblijf\n");
             Console.WriteLine("Selecteer een optie: ");
+            Console.WriteLine();
+            Console.WriteLine("Bij geen geldige invoer wordt standaard op ID gesorteerd.");
             string choice = Console.ReadLine();
 
             string queryString;
