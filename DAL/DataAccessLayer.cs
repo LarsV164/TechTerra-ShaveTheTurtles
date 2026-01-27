@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using TechTerra_FrontEnd.DataBase.Data;
@@ -43,7 +44,7 @@ namespace TechTerra_FrontEnd.DataAccessLayer
         // PAS DEZE AAN NAAR JOUW EIGEN INSTELLINGEN!!! (trust server certificate op true zetten anders werkt het niet en deze in de connectionstring aan elkaar vast typen VB: TrustServerCertificate=True)
         private string localConnectionString()
         {
-            string connectionstring = "Data Source = ASUS_Lars; Initial Catalog = VoorbeeldDierentuin; Integrated Security = True; Encrypt = True; TrustServerCertificate = True";
+            string connectionstring = "Data Source = ASUS_Lars; Initial Catalog = Dierentuin; Integrated Security = True; Encrypt = True; TrustServerCertificate = True";
             return connectionstring;
         }
 
@@ -85,7 +86,7 @@ namespace TechTerra_FrontEnd.DataAccessLayer
                 SELECT d.ID, d.Naam, d.Soort, d.VerblijfID, v.Naam AS Verblijfnaam, d.Geboortedatum
                 FROM tbl_Dier d
                 INNER JOIN tbl_Verblijf v ON d.VerblijfID = v.ID
-                ORDER BY d.VerblijfID";  
+                ORDER BY d.VerblijfID";
                     break;
                 default:
                     queryString = @"
@@ -94,6 +95,7 @@ namespace TechTerra_FrontEnd.DataAccessLayer
                 INNER JOIN tbl_Verblijf v ON d.VerblijfID = d.VerblijfID;";
                     break;
             }
+
 
             // Voer de query uit en vul de lijst met dieren
 
@@ -104,7 +106,7 @@ namespace TechTerra_FrontEnd.DataAccessLayer
             using (var command = new SqlCommand(queryString, connection))
             {
                 connection.Open();
-            //--------------------------------------------------------------
+                //--------------------------------------------------------------
                 // reader wordt gebruikt om de data uit de database te lezen
                 // deze wordt niet gebruikt voor het versturen van data naar de database
                 using (var reader = command.ExecuteReader())
@@ -112,7 +114,7 @@ namespace TechTerra_FrontEnd.DataAccessLayer
                     while (reader.Read())
                     {
                         var dier = new Dier
-                        
+
                         {
                             ID = reader.GetInt32(reader.GetOrdinal("ID")),
                             Naam = reader.GetString(reader.GetOrdinal("Naam")),
@@ -122,7 +124,7 @@ namespace TechTerra_FrontEnd.DataAccessLayer
                             Geboortedatum = reader.GetDateTime(reader.GetOrdinal("Geboortedatum"))
                         };
 
-                        
+
                         dieren.Add(dier);
                     }
                 }
@@ -131,6 +133,31 @@ namespace TechTerra_FrontEnd.DataAccessLayer
             return dieren;
         }
 
+        public int GetUserAccessLevel(string username, string password)
+        {
+            string queryString = @"
+        SELECT UserAccess
+        FROM tbl_Gebruikers
+        WHERE GebruikersNaam = @GebruikersNaam AND Wachtwoord = @Wachtwoord";  // Jouw kolomnamen
 
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand(queryString, connection))
+            {
+                command.Parameters.AddWithValue("@GebruikersNaam", username);
+                command.Parameters.AddWithValue("@Wachtwoord", password);
+                connection.Open();
+                var result = command.ExecuteScalar();
+                if (result != null && int.TryParse(result.ToString(), out int accessLevel))
+                {
+                    return accessLevel;  // Bijv. 1=admin, 2=teamleider, etc.
+                }
+                return -1;
+            }
+        }
     }
 }
+
+
+
+
+

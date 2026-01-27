@@ -3,30 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TechTerra_FrontEnd.DataAccessLayer;
+using TechTerra_FrontEnd.MODEL.Data;
 
 namespace TechTerra_FrontEnd
 {
     public class LogIn
     {
-
-        // Tijdelijk totdat het in de database staat
-        private List<string> Usernames = new List<string>
-        {
-            "admin",
-            "teamleider",
-            "verzorger",
-            "verblijfbeheerder"
-        };
-
-        private List<string> Passwords = new List<string>
-        {
-            "Admin0000",
-            "TeamL0000",
-            "Verz0000",
-            "VbBh0000"
-        };
-
-        public bool ShowLogin()
+        public int ShowLogin()
         {
             Console.Clear();
             Console.WriteLine("=== Login ===");
@@ -35,37 +19,36 @@ namespace TechTerra_FrontEnd
             Console.Write("Gebruikersnaam: ");
             string username = Console.ReadLine();
 
-            int UNindex = Usernames.IndexOf(username);
-
             Console.Write("Wachtwoord: ");
             string password = Console.ReadLine();
 
-            int PWindex = Passwords.IndexOf(password);
-
             Console.WriteLine();
-            if (ValidateLogIn(UNindex, PWindex))
+            int accessLevel = UserAccess(username, password);  // DAL retourneert nu int
+            if (accessLevel != -1)
             {
-                Console.WriteLine($"Welkom {username}!");
-                return true;
+                Console.WriteLine($"Welkom {username}! (Toegangsniveau: {accessLevel})");
+                return accessLevel;  // Retourneer niveau voor Menu
             }
             else
             {
                 Console.WriteLine("Gebruikersnaam of Wachtwoord verkeerd!");
                 Console.WriteLine("Programma wordt afgesloten, druk op een toets.");
                 Console.ReadKey();
-                return false;
+                return -1;
             }
         }
 
-        private bool ValidateLogIn(int UNindex, int PWindex)
+        private int UserAccess(string userName, string passWord)  // Verander naar int
         {
-            return UNindex == PWindex;
+            var dal = new DAL();
+            int UserAccessLevel = dal.GetUserAccessLevel(userName, passWord);
+            var gebruiker = new Gebruiker
+            {
+                Gebruikersnaam = userName,
+                Wachtwoord = passWord,
+                UserAccess = UserAccessLevel
+            };
+            return UserAccessLevel;
         }
-/*
-        public int AccessLevel()
-        {
-            return UNindex;
-
-        }*/
     }
 }

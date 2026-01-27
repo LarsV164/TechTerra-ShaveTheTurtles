@@ -12,7 +12,7 @@ namespace TechTerra_FrontEnd
         {
             var loginManager = new LogIn();
 
-            if (loginManager.ShowLogin())
+            if (loginManager.ShowLogin() != -1)
             {
                 Console.WriteLine("\ndruk op een toets om verder te gaan ->");
                 Console.ReadKey();
