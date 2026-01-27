@@ -3,23 +3,48 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TechTerra_FrontEnd.MODEL.Data;
 
 namespace TechTerra_FrontEnd
 {
     public class Menu
     {
-        public void ShowMenu()
+        public void ShowMenu(int UserAccess)
         {
+            string User;
+
+            if (UserAccess == 1)
+                User = "Admin";
+            else if (UserAccess == 2)
+                User = "Teamleider";
+            else if (UserAccess == 3)
+                User = "Verblijfsbeheerder";
+            else
+                User = "Verzorger";
+
             // Hoofdmenu weergeven
             bool doorgaan = true;
+
             while (doorgaan)
             {
                 Console.WriteLine("=== MENU ===");
+                Console.WriteLine($"ingelogd als:{User}");
                 Console.WriteLine();
+
                 Console.WriteLine("1. Dieren / Verblijven inzien");
-                Console.WriteLine("2. Dier gegevens aanpassen");
-                Console.WriteLine("3. Nieuw dier aanmelden");
-                Console.WriteLine("4. Deurmeldingen inzien");
+
+                if (UserAccess <= 2)
+                {
+                    Console.WriteLine("2. Dier gegevens aanpassen");
+                    Console.WriteLine("3. Nieuw dier aanmelden");
+                    Console.WriteLine("4. Deurmeldingen inzien");
+                }
+
+                if (UserAccess == 3)
+                {
+                    Console.WriteLine("2. Deurmeldingen inzien");
+                }
+                    
                 Console.WriteLine();
                 Console.WriteLine("Q. Applicatie afsluiten");
                 Console.WriteLine();
@@ -35,12 +60,32 @@ namespace TechTerra_FrontEnd
                         dierverblijf.ShowList();
                         break;
                     case "2":
+                        if (UserAccess == 3)
+                        {
+                            DeurMeldingen();
+                            break;
+                        }
+                        if (UserAccess == 4)
+                        {
+                            OngeldigeOptie();
+                            break;
+                        }
                         DierGegevens();
                         break;
                     case "3":
+                        if (UserAccess > 2)
+                        {
+                            OngeldigeOptie();
+                            break;
+                        }
                         DierAanmelden();
                         break;
                     case "4":
+                        if (UserAccess > 2)
+                        {
+                            OngeldigeOptie();
+                            break;
+                        }
                         DeurMeldingen();
                         break;
                     case "Q":
@@ -48,13 +93,17 @@ namespace TechTerra_FrontEnd
                         doorgaan = false;
                         break;
                     default:
-                        Console.WriteLine("\nOngeldige Optie! \nHoud er rekening mee dat de keuzes hoofdlettergevoelig zijn.\n\ndruk op een toets om nog eens te proberen ->");
-                        Console.ReadKey();
-                        Console.Clear();
+                        OngeldigeOptie();
                         break;
                 }
                 
             }
+        }
+        private void OngeldigeOptie()
+        {
+            Console.WriteLine("\nOngeldige Optie! \n\nDruk op een toets om nog eens te proberen ->");
+            Console.ReadKey();
+            Console.Clear();
         }
 
         //Tijdelijke methodes voor menu-opties

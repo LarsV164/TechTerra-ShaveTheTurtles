@@ -11,15 +11,16 @@ namespace TechTerra_FrontEnd
         static void Main(string[] args)
         {
             var loginManager = new LogIn();
+            int UserAccess = loginManager.ShowLogin();
 
-            if (loginManager.ShowLogin() != -1)
+            if (UserAccess != -1)
             {
                 Console.WriteLine("\ndruk op een toets om verder te gaan ->");
                 Console.ReadKey();
                 Console.Clear();
 
                 var menu = new Menu();
-                menu.ShowMenu();
+                menu.ShowMenu(UserAccess);
             }
         }
     }
