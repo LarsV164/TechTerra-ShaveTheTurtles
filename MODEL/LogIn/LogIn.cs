@@ -23,11 +23,11 @@ namespace TechTerra_FrontEnd
             string password = Console.ReadLine();
 
             Console.WriteLine();
-            int accessLevel = UserAccess(username, password);  // DAL retourneert nu int
+            int accessLevel = UserAccess(username, password);
             if (accessLevel != -1)
             {
                 Console.WriteLine($"Welkom {username}! (Toegangsniveau: {accessLevel})");
-                return accessLevel;  // Retourneer niveau voor Menu
+                return accessLevel;
             }
             else
             {
@@ -38,7 +38,7 @@ namespace TechTerra_FrontEnd
             }
         }
 
-        private int UserAccess(string userName, string passWord)  // Verander naar int
+        private int UserAccess(string userName, string passWord)
         {
             var dal = new DAL();
             int UserAccessLevel = dal.GetUserAccessLevel(userName, passWord);
