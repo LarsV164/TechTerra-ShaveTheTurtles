@@ -175,6 +175,7 @@ namespace TechTerra_FrontEnd.DataAccessLayer
                 cmd.ExecuteNonQuery();
             }
         }
+
         public List<Deur> GetDeuren()
         {
             var deuren = new List<Deur>();
@@ -200,9 +201,9 @@ namespace TechTerra_FrontEnd.DataAccessLayer
                         };
                         deuren.Add(deur);
                     }
-                    return deuren;
                 }
             }
+            return deuren;
         }
     }
 }
