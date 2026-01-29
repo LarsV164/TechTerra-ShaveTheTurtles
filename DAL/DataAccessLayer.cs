@@ -179,11 +179,9 @@ namespace TechTerra_FrontEnd.DataAccessLayer
         public List<Deur> GetDeuren()
         {
             var deuren = new List<Deur>();
-            string queryString = @"
-                SELECT *
-                FROM tbl_Deuren";
-            using (var connection = new SqlConnection(connectionString))
+            string queryString = @"SELECT * FROM tbl_Deuren";  // Note: Deuren with 'n'
 
+            using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand(queryString, connection))
             {
                 connection.Open();
@@ -191,20 +189,20 @@ namespace TechTerra_FrontEnd.DataAccessLayer
                 {
                     while (reader.Read())
                     {
-                        var deur = new Deur
+                        deuren.Add(new Deur
                         {
                             ID = reader.GetInt32(reader.GetOrdinal("ID")),
-                            Open = reader.GetBoolean(reader.GetOrdinal("Open")),
+                            Open = reader.GetBoolean(reader.GetOrdinal("DeurOpen")),
                             Alarm = reader.GetBoolean(reader.GetOrdinal("Alarm")),
                             MaxTijdOpen = reader.GetInt32(reader.GetOrdinal("MaxTijdOpen")),
                             VerblijfID = reader.GetInt32(reader.GetOrdinal("VerblijfID"))
-                        };
-                        deuren.Add(deur);
+                        });
                     }
-                }
-            }
-            return deuren;
+                }  // reader closes here
+            }  // connection closes here
+            return deuren;  // ← NOW SAFE - outside all using blocks
         }
+
     }
 }
 
