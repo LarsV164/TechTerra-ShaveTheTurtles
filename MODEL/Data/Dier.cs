@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+//Lars
 namespace TechTerra_FrontEnd.DataBase.Data
 {
     public class Dier

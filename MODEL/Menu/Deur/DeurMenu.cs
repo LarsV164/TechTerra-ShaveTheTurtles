@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TechTerra_FrontEnd.DataAccessLayer;
 using TechTerra_FrontEnd.MODEL.Data;
-
+//Gino/Lars
 namespace TechTerra_FrontEnd.MODEL.Menu.DeurMenu
 {
     internal class DeurMenu

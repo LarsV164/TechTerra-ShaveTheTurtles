@@ -7,7 +7,7 @@ using TechTerra_FrontEnd.MODEL.Data;
 using TechTerra_FrontEnd.DataAccessLayer;
 using TechTerra_FrontEnd.MODEL.Menu.DierVerblijf;
 using TechTerra_FrontEnd.MODEL.Menu.DeurMenu;
-
+//Lars
 namespace TechTerra_FrontEnd
 {
     public class Menu
@@ -75,7 +75,8 @@ namespace TechTerra_FrontEnd
                             OngeldigeOptie();
                             break;
                         }
-                        DierGegevens();
+                        var dieraanpassen = new DierAanpassen();
+                        dieraanpassen.WijzigDier();
                         break;
                     case "3":
                         if (UserAccess > 2)
@@ -112,18 +113,7 @@ namespace TechTerra_FrontEnd
             Console.Clear();
         }
 
-        //Tijdelijke methodes voor menu-opties
-        private void DierGegevens()
-        {
-            Console.Clear();
-            Console.WriteLine("=== DIER GEGEVENS VERANDEREN ===");
-            Console.WriteLine();
-            Console.WriteLine("Hier ga je ooit de gegevens van een dier kunnen veranderen");
-            Console.WriteLine();
-            Console.Write("druk op een toets om terug te gaan naar het menu ->");
-            Console.ReadKey();
-            Console.Clear();
-        }
+        
              
         
 

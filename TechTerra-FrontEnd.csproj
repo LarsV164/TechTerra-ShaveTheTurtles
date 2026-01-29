@@ -57,6 +57,7 @@
     <Compile Include="MODEL\DeurMonitor\DeurMonitorService.cs" />
     <Compile Include="MODEL\Menu\Deur\DeurMenu.cs" />
     <Compile Include="MODEL\Menu\DierVerblijf\DierAanmelden.cs" />
+    <Compile Include="MODEL\Menu\DierVerblijf\DierAanpassen.cs" />
     <Compile Include="MODEL\Menu\DierVerblijf\DierVerblijf.cs" />
     <Compile Include="MODEL\LogIn\LogIn.cs" />
     <Compile Include="MODEL\Menu\Menu.cs" />

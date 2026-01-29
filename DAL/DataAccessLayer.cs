@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TechTerra_FrontEnd.DataBase.Data;
 using TechTerra_FrontEnd.MODEL.Data;
-
+//Lars
 namespace TechTerra_FrontEnd.DataAccessLayer
 {
     public class DAL
@@ -50,7 +50,7 @@ namespace TechTerra_FrontEnd.DataAccessLayer
         }
 
 
-
+        //Lars
         // Dieren ophalen uit de database
         public List<Dier> GetDieren()
         {
@@ -134,12 +134,13 @@ namespace TechTerra_FrontEnd.DataAccessLayer
             return dieren;
         }
 
+        //Lars
         public int GetUserAccessLevel(string username, string password)
         {
             string queryString = @"
         SELECT UserAccess
         FROM tbl_Gebruikers
-        WHERE GebruikersNaam = @GebruikersNaam AND Wachtwoord = @Wachtwoord";  // Jouw kolomnamen
+        WHERE GebruikersNaam = @GebruikersNaam AND Wachtwoord = @Wachtwoord"; 
 
             using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand(queryString, connection))
@@ -155,7 +156,67 @@ namespace TechTerra_FrontEnd.DataAccessLayer
                 return -1;
             }
         }
+        //Lars
+        public Dier GetDierById(int dierId)
+        {
+            string queryString = @"SELECT * FROM tbl_Dier WHERE ID = @DierID";
 
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand(queryString, connection))
+            {
+                command.Parameters.AddWithValue("@DierID", dierId);
+
+                connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        var dier = new Dier
+                        {
+                            ID = reader.GetInt32(reader.GetOrdinal("ID")),
+                            Naam = reader.GetString(reader.GetOrdinal("Naam")),
+                            Soort = reader.GetString(reader.GetOrdinal("Soort")),
+                            VerblijfID = reader.GetInt32(reader.GetOrdinal("VerblijfID")),
+                            Geboortedatum = reader.GetDateTime(reader.GetOrdinal("Geboortedatum"))
+                        };
+                        return dier;
+                    }
+                }
+            }
+            return null;  // Dier niet gevonden
+        }
+        //Gino/Lars
+        public void WijzigDier(int dierId, string naam, string soort, int? verblijfId, DateTime? geboortedatum)
+        {
+            string queryString = @"UPDATE tbl_Dier 
+                          SET Naam = @Naam,
+                              Soort = @Soort,
+                              VerblijfID = @VerblijfID,
+                              Geboortedatum = @Geboortedatum
+                          WHERE ID = @DierID";
+
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand(queryString, connection))
+            {
+                // Ga ervan uit dat alle parameters een waarde hebben
+                command.Parameters.AddWithValue("@DierID", dierId);
+                command.Parameters.AddWithValue("@Naam", naam);
+                command.Parameters.AddWithValue("@Soort", soort);
+                command.Parameters.AddWithValue("@VerblijfID", verblijfId);
+                command.Parameters.AddWithValue("@Geboortedatum", geboortedatum);
+
+                connection.Open();
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected == 0)
+                    throw new Exception("Dier niet gevonden.");
+            }
+        }
+
+
+
+        //Dax
         public void VoegDierToe(string naam, string soort, int verblijfId, DateTime geboortedatum)
         {
             // SQL data toevoegen
@@ -175,11 +236,11 @@ namespace TechTerra_FrontEnd.DataAccessLayer
                 cmd.ExecuteNonQuery();
             }
         }
-
+        //Lars
         public List<Deur> GetDeuren()
         {
             var deuren = new List<Deur>();
-            string queryString = @"SELECT * FROM tbl_Deuren";  // Note: Deuren with 'n'
+            string queryString = @"SELECT * FROM tbl_Deuren";  
 
             using (var connection = new SqlConnection(connectionString))
             using (var command = new SqlCommand(queryString, connection))
@@ -198,11 +259,11 @@ namespace TechTerra_FrontEnd.DataAccessLayer
                             VerblijfID = reader.GetInt32(reader.GetOrdinal("VerblijfID"))
                         });
                     }
-                }  // reader closes here
-            }  // connection closes here
-            return deuren;  // ← NOW SAFE - outside all using blocks
+                } 
+            } 
+            return deuren; 
         }
-
+        //Lars
         public void GetOpenDeuren()
         { 
             string queryString = @"SELECT * FROM tbl_Deuren WHERE DeurOpen = 1 AND Alarm = 1";
@@ -222,8 +283,8 @@ namespace TechTerra_FrontEnd.DataAccessLayer
                         Console.WriteLine("--------------------------------------------");
                     }
                     
-                }  // reader closes here
-            }  // connection closes here
+                }
+            } 
             
         }
 

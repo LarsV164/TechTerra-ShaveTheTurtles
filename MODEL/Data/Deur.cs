@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+//Gino
 namespace TechTerra_FrontEnd.MODEL.Data
 {
     public class Deur
