@@ -11,6 +11,6 @@ namespace TechTerra_FrontEnd.MODEL.Data
         public string Gebruikersnaam { get; set; }
         public string Wachtwoord { get; set; }
         public int UserAccess { get; set; }
-        }
     }
+}
 
