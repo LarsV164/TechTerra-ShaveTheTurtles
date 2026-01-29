@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TechTerra_FrontEnd.MODEL.Data;
+using TechTerra_FrontEnd.DataAccessLayer;
 
 namespace TechTerra_FrontEnd
 {

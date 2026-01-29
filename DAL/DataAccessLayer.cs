@@ -154,8 +154,8 @@ namespace TechTerra_FrontEnd.DataAccessLayer
                 return -1;
             }
         }
-    }
-    public void VoegDierToe(string naam, string soort, int verblijfId, DateTime geboortedatum)
+
+        public void VoegDierToe(string naam, string soort, int verblijfId, DateTime geboortedatum)
         {
             // SQL data toevoegen
             string query = "INSERT INTO tbl_Dier (Naam, Soort, VerblijfID, Geboortedatum) VALUES (@n, @s, @v, @d)";
@@ -175,7 +175,7 @@ namespace TechTerra_FrontEnd.DataAccessLayer
             }
         }
     }
-
+}
 
 
 
