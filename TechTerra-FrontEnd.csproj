@@ -54,6 +54,7 @@
     <Compile Include="MODEL\Data\Deur.cs" />
     <Compile Include="MODEL\Data\Dier.cs" />
     <Compile Include="MODEL\Data\Gebruiker.cs" />
+    <Compile Include="MODEL\Menu\DierVerblijf\DierAanmelden.cs" />
     <Compile Include="MODEL\Menu\DierVerblijf\DierVerblijf.cs" />
     <Compile Include="MODEL\LogIn\LogIn.cs" />
     <Compile Include="MODEL\Menu\Menu.cs" />
