@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TechTerra_FrontEnd.MODEL.Data;
 using TechTerra_FrontEnd.DataAccessLayer;
 using TechTerra_FrontEnd.MODEL.Menu.DierVerblijf;
+using TechTerra_FrontEnd.MODEL.Menu.DeurMenu;
 
 namespace TechTerra_FrontEnd
 {
@@ -54,6 +55,7 @@ namespace TechTerra_FrontEnd
 
                 string choice = Console.ReadLine();
                 string choice1 = choice.ToUpper();
+                var deurmeldingen = new DeurMenu();
 
                 switch (choice1)
                 {
@@ -62,9 +64,10 @@ namespace TechTerra_FrontEnd
                         dierverblijf.ShowList();
                         break;
                     case "2":
+                        
                         if (UserAccess == 3)
                         {
-                            DeurMeldingen();
+                            deurmeldingen.ShowList();
                             break;
                         }
                         if (UserAccess == 4)
@@ -89,7 +92,7 @@ namespace TechTerra_FrontEnd
                             OngeldigeOptie();
                             break;
                         }
-                        DeurMeldingen();
+                        deurmeldingen.ShowList();
                         break;
                     case "Q":
                         Console.Clear();
@@ -121,28 +124,9 @@ namespace TechTerra_FrontEnd
             Console.ReadKey();
             Console.Clear();
         }
-
-
-            
+             
         
 
-        private void DeurMeldingen()
-        {
-            Console.Clear();
-            Console.WriteLine("=== DEUR MELDINGEN ===");
-            Console.WriteLine();
-            Console.WriteLine("- Voorbeeld -");
-            Console.WriteLine();
-            Console.WriteLine("ID: SchildpadVerblijf_001");
-            Console.WriteLine("MELDING: \nDeur staat langer dan 2 minuten open.");
-            Console.WriteLine();
-            Console.WriteLine("== OPTIES ==");
-            Console.WriteLine("1. Deur is gesloten en verblijf gecontrolleerd");
-            Console.WriteLine("2. Deur hoort open te staan");
-            Console.WriteLine();
-            Console.WriteLine("druk op een toets om terug te gaan naar het menu ->");
-            Console.ReadKey();
-            Console.Clear();
+
         }
     }
-}

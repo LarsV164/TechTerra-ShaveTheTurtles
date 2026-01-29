@@ -7,6 +7,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using TechTerra_FrontEnd.DataBase.Data;
+using TechTerra_FrontEnd.MODEL.Data;
 
 namespace TechTerra_FrontEnd.DataAccessLayer
 {
@@ -20,7 +21,7 @@ namespace TechTerra_FrontEnd.DataAccessLayer
             // this.connectionString = BuildConnectionString();
 
             //2. Connectie bouwen voor lokale database
-            this.connectionString = localConnectionString();
+            this.connectionString = LocalConnectionString();
         }
 
         // Connection string maken voor  Azure SQL Database (Deze staat uit vanwege de kosten voor de firewall voor toegang)
@@ -42,7 +43,7 @@ namespace TechTerra_FrontEnd.DataAccessLayer
         // Connection string maken voor lokale database
 
         // PAS DEZE AAN NAAR JOUW EIGEN INSTELLINGEN!!! (trust server certificate op true zetten anders werkt het niet en deze in de connectionstring aan elkaar vast typen VB: TrustServerCertificate=True)
-        private string localConnectionString()
+        private string LocalConnectionString()
         {
             string connectionstring = "Data Source = ASUS_Lars; Initial Catalog = Dierentuin; Integrated Security = True; Encrypt = True; TrustServerCertificate = True";
             return connectionstring;
@@ -174,8 +175,38 @@ namespace TechTerra_FrontEnd.DataAccessLayer
                 cmd.ExecuteNonQuery();
             }
         }
+        public List<Deur> GetDeuren()
+        {
+            var deuren = new List<Deur>();
+            string queryString = @"
+                SELECT *
+                FROM tbl_Deuren";
+            using (var connection = new SqlConnection(connectionString))
+
+            using (var command = new SqlCommand(queryString, connection))
+            {
+                connection.Open();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var deur = new Deur
+                        {
+                            ID = reader.GetInt32(reader.GetOrdinal("ID")),
+                            Open = reader.GetBoolean(reader.GetOrdinal("Open")),
+                            Alarm = reader.GetBoolean(reader.GetOrdinal("Alarm")),
+                            MaxTijdOpen = reader.GetInt32(reader.GetOrdinal("MaxTijdOpen")),
+                            VerblijfID = reader.GetInt32(reader.GetOrdinal("VerblijfID"))
+                        };
+                        deuren.Add(deur);
+                    }
+                    return deuren;
+                }
+            }
+        }
     }
 }
+
 
 
 
