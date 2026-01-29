@@ -203,6 +203,30 @@ namespace TechTerra_FrontEnd.DataAccessLayer
             return deuren;  // ← NOW SAFE - outside all using blocks
         }
 
+        public void GetOpenDeuren()
+        { 
+            string queryString = @"SELECT * FROM tbl_Deuren WHERE DeurOpen = 1 AND Alarm = 1";
+            
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand(queryString, connection))
+            {
+                connection.Open();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int ID = reader.GetInt32(reader.GetOrdinal("ID"));
+                        int vID = reader.GetInt32(reader.GetOrdinal("VerblijfID"));
+                        Console.WriteLine($"DEUR ID: {ID}");
+                        Console.WriteLine($"VERBLIJF ID: {vID}");
+                        Console.WriteLine("--------------------------------------------");
+                    }
+                    
+                }  // reader closes here
+            }  // connection closes here
+            
+        }
+
     }
 }
 
