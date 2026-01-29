@@ -155,7 +155,26 @@ namespace TechTerra_FrontEnd.DataAccessLayer
             }
         }
     }
-}
+    public void VoegDierToe(string naam, string soort, int verblijfId, DateTime geboortedatum)
+        {
+            // SQL data toevoegen
+            string query = "INSERT INTO tbl_Dier (Naam, Soort, VerblijfID, Geboortedatum) VALUES (@n, @s, @v, @d)";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                // Koppelen van de variabelen aan de SQL-opdracht
+                cmd.Parameters.AddWithValue("@n", naam);
+                cmd.Parameters.AddWithValue("@s", soort);
+                cmd.Parameters.AddWithValue("@v", verblijfId);
+                cmd.Parameters.AddWithValue("@d", geboortedatum);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+    }
 
 
 
